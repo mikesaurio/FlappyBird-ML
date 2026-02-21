@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class ScoreTrigger : MonoBehaviour
-{
-    private void OnTriggerEnter2D(Collider2D collision)
-{
-    Debug.Log("Algo entró al trigger");
+public class ScoreTrigger : MonoBehaviour{
+    private void OnTriggerEnter2D(Collider2D collision){
+        if (collision.CompareTag("Player")){
+            Debug.Log("Paso por la tuberia!");
 
-    if (collision.CompareTag("Player"))
-    {
-        Debug.Log("Es el Player!");
-        ScoreManager.instance.AddPoint();
+            FlappyAgent agent = collision.GetComponent<FlappyAgent>();
+
+            if (agent != null){
+                agent.AddReward(2f);
+            }
+
+            ScoreManager.instance.AddPoint();
+        }
     }
-}
 }

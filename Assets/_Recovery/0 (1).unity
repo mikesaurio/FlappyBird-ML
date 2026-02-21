@@ -373,7 +373,6 @@ MonoBehaviour:
   spawnRate: 2
   minHeight: -1
   maxHeight: 1
-  isSpawning: 1
 --- !u!4 &667154392
 Transform:
   m_ObjectHideFlags: 0
@@ -682,7 +681,7 @@ Transform:
   m_GameObject: {fileID: 971975975}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.7, y: 0.8, z: 10}
+  m_LocalPosition: {x: 21, y: 0.8, z: 10}
   m_LocalScale: {x: 15, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -877,8 +876,8 @@ Transform:
   m_GameObject: {fileID: 1169660454}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
-  m_LocalScale: {x: 16, y: 3.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 10}
+  m_LocalScale: {x: 15, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1108,7 +1107,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 13, y: 1.5, z: 1}
+  m_LocalScale: {x: 15, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1128,9 +1127,7 @@ GameObject:
   - component: {fileID: 1618009457}
   - component: {fileID: 1618009458}
   - component: {fileID: 1618009459}
-  - component: {fileID: 1618009461}
   - component: {fileID: 1618009460}
-  - component: {fileID: 1618009462}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Player
@@ -1163,7 +1160,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!212 &1618009454
 SpriteRenderer:
@@ -1252,6 +1249,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BirdController
   jumpForce: 5
+  gameOverText: {fileID: 1848228953}
+  rotationSpeed: 5
+  maxUpAngle: 30
+  maxDownAngle: -90
 --- !u!58 &1618009457
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1349,36 +1350,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1618009452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.DecisionRequester
-  DecisionPeriod: 1
-  TakeActionsBetweenDecisions: 1
---- !u!114 &1618009461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618009452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Agent
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 2000
---- !u!114 &1618009462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618009452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98b694cd0d7068a4cb2a382691d70a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlappyAgent
@@ -1386,11 +1357,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  pipeSpawner: {fileID: 667154391}
-  nextPipe: {fileID: 0}
   jumpForce: 5
-  upperLimit: 5
-  lowerLimit: -5
+  nextPipe: {fileID: 0}
 --- !u!1 &1755910659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,8 +1567,8 @@ SceneRoots:
   - {fileID: 1618009455}
   - {fileID: 1168786350}
   - {fileID: 1183448932}
-  - {fileID: 1499211559}
   - {fileID: 667154392}
+  - {fileID: 1499211559}
   - {fileID: 1169660456}
   - {fileID: 971975978}
   - {fileID: 1755910660}
