@@ -8,7 +8,10 @@ public class ScoreTrigger : MonoBehaviour{
             FlappyAgent agent = collision.GetComponent<FlappyAgent>();
 
             if (agent != null){
-                agent.AddReward(2f);
+                Debug.Log("GANO UN PUNTO");
+                agent.AddReward(1f);
+            }else{
+                Debug.Log("NULL!!!");
             }
 
             ScoreManager.instance.AddPoint();

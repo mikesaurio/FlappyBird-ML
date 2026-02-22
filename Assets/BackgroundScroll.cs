@@ -1,24 +1,30 @@
 using UnityEngine;
 
-public class BackgroundScroll : MonoBehaviour{
-    public float speed = 1f;
+public class BackgroundScroll : MonoBehaviour
+{
+    public float speed = 0.8f;
+
     private float width;
+    private Vector3 startPosition;
 
     void Start()
     {
         width = GetComponent<SpriteRenderer>().bounds.size.x;
-
-        if (transform.position.x > 0)
-            transform.position = new Vector3(width, transform.position.y, transform.position.z);
+        startPosition = transform.position;
     }
 
     void Update()
     {
         transform.position += Vector3.left * speed * Time.deltaTime;
 
-        if (transform.position.x <= -width)
+        if (transform.position.x <= -width + 0.01f)
         {
             transform.position += Vector3.right * width * 2f;
         }
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = startPosition;
     }
 }
