@@ -24,24 +24,8 @@ public class FlappyAgent : Agent
         startPosition = transform.position;
     }
 
-    private void FixedUpdate()
-    {
-        RequestDecision();
-    }
-    private void Update()
-    {
-        if (transform.position.y > upperLimit || transform.position.y < lowerLimit)
-        {
-            Debug.Log("Murió por salir de límites");
-            AddReward(-1f);
-            EndEpisode();
-        }
-    }
-
     public override void OnEpisodeBegin()
     {
-        Debug.Log("=== REINICIANDO EPISODIO ===");
-
         transform.position = startPosition;
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
@@ -52,7 +36,8 @@ public class FlappyAgent : Agent
             bg.ResetPosition();
         }
 
-        if (pipeSpawner != null){
+        if (pipeSpawner != null)
+        {
             pipeSpawner.ResetPipes();
             pipeSpawner.StartSpawning();
         }
@@ -79,6 +64,10 @@ public class FlappyAgent : Agent
 
             sensor.AddObservation(dx);
             sensor.AddObservation(dy);
+
+            // ✅ Recompensa adicional si está cerca del centro del hueco
+            float distanceToCenter = Mathf.Abs(dy);
+            AddReward(Mathf.Clamp01(0.1f - distanceToCenter) * 0.05f);
         }
         else
         {
@@ -93,11 +82,23 @@ public class FlappyAgent : Agent
         {
             rb.linearVelocity = Vector2.up * jumpForce;
         }
+
+        // ✅ Recompensa pequeña por sobrevivir cada decisión
+        AddReward(0.01f);
+    }
+
+    private void Update()
+    {
+        // Castigo fuerte si sale de límites
+        if (transform.position.y > upperLimit || transform.position.y < lowerLimit)
+        {
+            AddReward(-1f);
+            EndEpisode();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("COLISION DETECTADA CON: " + collision.gameObject.name);
         AddReward(-1f);
         EndEpisode();
     }

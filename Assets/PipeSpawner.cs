@@ -14,6 +14,9 @@ public class PipeSpawner : MonoBehaviour
     // 👇 Lista para guardar tuberías activas
     private List<GameObject> activePipes = new List<GameObject>();
 
+    // Referencia al agente
+    public FlappyAgent agent;
+
     void Update()
     {
         if (!isSpawning) return;
@@ -24,7 +27,11 @@ public class PipeSpawner : MonoBehaviour
             SpawnPipe();
             timer = 0f;
         }
+
+        // ✅ Actualizar la referencia de la tubería más cercana
+        UpdateNextPipe();
     }
+
     public void StopSpawning()
     {
         isSpawning = false;
@@ -61,9 +68,41 @@ public class PipeSpawner : MonoBehaviour
 
         timer = 0f;   // 👈 IMPORTANTE
     }
-    
-    private void Awake()
+
+    // ✅ Método para encontrar la tubería más cercana al jugador
+    private void UpdateNextPipe()
     {
-        Debug.Log("Spawner creado: " + gameObject.GetInstanceID());
+        if (agent == null || activePipes.Count == 0) return;
+
+        GameObject closestPipe = null;
+        float minDistance = float.MaxValue;
+
+        foreach (GameObject pipe in activePipes)
+        {
+            if (pipe == null) continue;
+
+            float dx = pipe.transform.position.x - agent.transform.position.x;
+
+            // Solo considerar tuberías que estén adelante del jugador
+            if (dx > 0 && dx < minDistance)
+            {
+                minDistance = dx;
+                closestPipe = pipe;
+            }
+        }
+
+        if (closestPipe != null)
+        {
+            agent.nextPipe = closestPipe.transform;
+        }
+    }
+
+    // ✅ Método para remover tuberías ya pasadas
+    public void RemovePipe(GameObject pipe)
+    {
+        if (activePipes.Contains(pipe))
+        {
+            activePipes.Remove(pipe);
+        }
     }
 }
