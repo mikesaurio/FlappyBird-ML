@@ -84,7 +84,7 @@ public class FlappyAgent : Agent
         }
 
         // ✅ Recompensa pequeña por sobrevivir cada decisión
-        AddReward(0.01f);
+        AddReward(0.1f);
     }
 
     private void Update()

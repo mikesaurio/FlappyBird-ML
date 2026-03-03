@@ -12,6 +12,8 @@ public class ScoreTrigger : MonoBehaviour
             {
                 // ✅ Recompensa clara al pasar tubería
                 agent.AddReward(1f);
+                Debug.Log("Tubo pasado. Total: " + agent.GetCumulativeReward());
+
 
                 // ✅ eliminar tubería pasada de la lista
                 if (agent.pipeSpawner != null)
