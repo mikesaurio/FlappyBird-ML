@@ -44,7 +44,7 @@ public class PipeSpawner : MonoBehaviour
 
     void SpawnPipe()
     {
-        float randomY = Random.Range(minHeight, maxHeight);
+        float randomY = 0f;//Random.Range(minHeight, maxHeight);
         Vector3 spawnPos = new Vector3(6f, randomY, 0f);
 
         GameObject pipe = Instantiate(pipePrefab, spawnPos, Quaternion.identity);
@@ -103,6 +103,9 @@ public class PipeSpawner : MonoBehaviour
         if (activePipes.Contains(pipe))
         {
             activePipes.Remove(pipe);
+            Destroy(pipe);
+            // ¡Crucial!
+            agent.nextPipe = activePipes[0].transform;
         }
     }
 }

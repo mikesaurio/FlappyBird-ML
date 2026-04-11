@@ -20,6 +20,8 @@ public class ScoreTrigger : MonoBehaviour
                 {
                     agent.pipeSpawner.RemovePipe(transform.parent.gameObject);
                 }
+            }else{
+                Debug.Log("NULL");
             }
 
             ScoreManager.instance.AddPoint();

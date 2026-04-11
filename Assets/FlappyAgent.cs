@@ -67,7 +67,7 @@ public class FlappyAgent : Agent
 
             // ✅ Recompensa adicional si está cerca del centro del hueco
             float distanceToCenter = Mathf.Abs(dy);
-            AddReward(Mathf.Clamp01(0.1f - distanceToCenter) * 0.05f);
+            AddReward(Mathf.Clamp01(0.1f - distanceToCenter) * 0.01f);
         }
         else
         {
@@ -84,7 +84,7 @@ public class FlappyAgent : Agent
         }
 
         // ✅ Recompensa pequeña por sobrevivir cada decisión
-        AddReward(0.1f);
+        AddReward(0.001f);
     }
 
     private void Update()
